@@ -8,7 +8,7 @@ namespace nall {
     enum class Platform : uint { Windows, MacOS, Linux, BSD, Unknown };
     enum class API : uint { Windows, Posix, Unknown };
     enum class Display : uint { Windows, Quartz, Xorg, Unknown };
-    enum class Processor : uint { x86, amd64, ARM, PPC32, PPC64, Unknown };
+    enum class Processor : uint { x86, amd64, AARCH64, ARM, PPC32, PPC64, Unknown };
     enum class Endian : uint { LSB, MSB, Unknown };
 
     static inline auto compiler() -> Compiler;
@@ -122,6 +122,9 @@ namespace nall {
 #elif defined(__amd64__) || defined(_M_AMD64)
   #define PROCESSOR_AMD64
   auto Intrinsics::processor() -> Processor { return Processor::amd64; }
+#elif defined(__aarch64__)
+  #define PROCESSOR_ARM64
+  auto Intrinsics::processor() -> Processor { return Processor::AARCH64; }
 #elif defined(__arm__)
   #define PROCESSOR_ARM
   auto Intrinsics::processor() -> Processor { return Processor::ARM; }
